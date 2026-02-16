@@ -5,9 +5,9 @@ const UNIT = 'K'; // change currency/unit here (e.g. 'K', 'đ', 'USD')
 // Keys are the amount values (as strings or numbers). Values are percentages/weights.
 // Example: 100 => 1%, 200 => 20%, 500 => 79%
 const WEIGHT_MAP = {
-  '100': 1,
-  '200': 20,
-  '500': 79
+  '100': 5,
+  '200': 15,
+  '500': 80
 };
 // confetti/fireworks canvas
 const confettiCanvas = document.getElementById('confetti');
@@ -117,11 +117,11 @@ function openEnvelope(el){
     const chosen = pickIndexRandom();
     const value = amounts[chosen];
     const back = el.querySelector('.back .amount');
-    back.textContent = `${value} ${UNIT}`;
+    back.textContent = `${value}${UNIT}`;
     el.classList.add('opened');
     // show modal with result and prevent background scroll
     if(resultBox){
-      resultBox.innerHTML = `<strong>Chúc mừng!</strong><br>Bạn nhận được <strong>${value} ${UNIT}</strong>`;
+      resultBox.innerHTML = `<strong>Chúc mừng <span>Em iu</span></strong><br><strong><span>Em iu</span></strong> đã nhận được <strong>${value}${UNIT}</strong>`;
     }
     if(resultModal){
       resultModal.classList.add('visible');

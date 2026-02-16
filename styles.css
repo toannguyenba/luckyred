@@ -1,6 +1,7 @@
 :root{
   --bg:#fff6f3;
   --primary:#d32f2f;
+  --love:#ff6b9b;
   --accent:#ffb74d;
   --card:#ffffff;
   --muted:#6b6b6b;
@@ -30,7 +31,7 @@ main{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
 .card{width:100%;height:100%;border-radius:12px;transform-style:preserve-3d;transition:transform 600ms cubic-bezier(.2,.9,.3,1);box-shadow:0 8px 22px rgba(0,0,0,0.12)}
 .front,.back{position:absolute;inset:0;border-radius:12px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden}
 .front{background:linear-gradient(180deg,#d32f2f,#b71c1c);color:#fff;flex-direction:column;padding:12px}
-.front .heart{font-size:34px;transform:translateY(-4px)}
+.front .heart{font-size:27px;transform:translateY(-4px)}
 .front .label{margin-top:6px;font-weight:700}
 .back{background:linear-gradient(180deg,#fff8e1,#fff3e0);color:#7f1d1d;transform:rotateY(180deg);flex-direction:column;padding:12px}
 
@@ -99,6 +100,10 @@ footer{text-align:center;margin-top:18px;color:var(--muted)}
   .reset-fab{right:50%;transform:translateX(50%);bottom:16px;width:64px;height:64px;font-size:24px}
 }
 
+@media (max-width:520px){
+  .front .heart{font-size:32px}
+}
+
 /* visible state */
 .reset-fab.visible{
   opacity:1;
@@ -112,6 +117,7 @@ footer{text-align:center;margin-top:18px;color:var(--muted)}
 .modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(2px)}
 .modal-content{position:relative;z-index:1201;background:var(--card);padding:20px;border-radius:12px;max-width:92%;width:360px;box-shadow:0 20px 40px rgba(0,0,0,0.18);text-align:center}
 .modal-message{font-size:1.1rem;margin-bottom:12px;color:#3b2b2b}
+.modal-message span{color:var(--love);font-style:italic;padding:0 0px}
 .modal-actions{display:flex;justify-content:center}
 .modal-reset{padding:10px 18px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--primary),#ff6b6b);color:#fff;font-weight:700;cursor:pointer}
 
