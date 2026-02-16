@@ -1,0 +1,124 @@
+:root{
+  --bg:#fff6f3;
+  --primary:#d32f2f;
+  --accent:#ffb74d;
+  --card:#ffffff;
+  --muted:#6b6b6b;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,Segoe UI,system-ui,Arial,sans-serif;background:linear-gradient(180deg,#fffaf7 0%, #ffeaea 100%);margin:0;color:#2b2b2b;}
+.container{max-width:1000px;margin:32px auto;padding:24px}
+header{text-align:center;margin-bottom:12px}
+h1{margin:0;font-size:1.8rem;color:var(--primary)}
+p{margin:6px 0 0;color:var(--muted)}
+
+main{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+.controls{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08)}
+.presets{display:flex;gap:8px;margin-bottom:10px}
+.presets button{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:#fff;cursor:pointer}
+#amounts{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-bottom:10px}
+.actions{display:flex;gap:10px}
+.actions button{flex:1;padding:10px;border-radius:10px;border:0;cursor:pointer}
+.actions #applyList{background:linear-gradient(90deg,#fff 0,#fff);color:#333;border:1px solid #eee}
+.actions .spin{background:linear-gradient(90deg,var(--primary),#ff6b6b);color:#fff;font-weight:700}
+
+.wheel-area{position:relative;display:flex;justify-content:center;align-items:center}
+/* envelopes layout */
+.wheel-area{min-height:320px}
+.envelopes{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;align-items:center;padding:18px}
+.envelope{width:120px;height:160px;position:relative;perspective:800px;cursor:pointer}
+.card{width:100%;height:100%;border-radius:12px;transform-style:preserve-3d;transition:transform 600ms cubic-bezier(.2,.9,.3,1);box-shadow:0 8px 22px rgba(0,0,0,0.12)}
+.front,.back{position:absolute;inset:0;border-radius:12px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden}
+.front{background:linear-gradient(180deg,#d32f2f,#b71c1c);color:#fff;flex-direction:column;padding:12px}
+.front .heart{font-size:34px;transform:translateY(-4px)}
+.front .label{margin-top:6px;font-weight:700}
+.back{background:linear-gradient(180deg,#fff8e1,#fff3e0);color:#7f1d1d;transform:rotateY(180deg);flex-direction:column;padding:12px}
+
+/* opened state: flip */
+.envelope.opened .card{transform: rotateY(180deg) translateY(-6px) scale(1.02)}
+
+/* shaking animation while opening */
+@keyframes shake {
+  0%{transform: translateX(0)}
+  20%{transform: translateX(-6px)}
+  40%{transform: translateX(6px)}
+  60%{transform: translateX(-4px)}
+  80%{transform: translateX(4px)}
+  100%{transform: translateX(0)}
+}
+.envelope.shaking{animation:shake 700ms ease-in-out}
+
+/* disabled state after one envelope opened */
+.envelope.disabled{opacity:0.45;pointer-events:none;transform:scale(0.98)}
+
+.result{grid-column:1/-1;margin-top:16px;text-align:center}
+#resultBox{font-size:1.4rem;padding:12px;border-radius:10px;background:linear-gradient(90deg,#fffdf7,#fff6f0);display:inline-block;min-width:260px}
+
+.result{grid-column:1/-1;margin-top:16px;text-align:center}
+#resultBox{font-size:1.4rem;padding:12px;border-radius:10px;background:linear-gradient(90deg,#fffdf7,#fff6f0);display:inline-block;min-width:260px}
+
+footer{text-align:center;margin-top:18px;color:var(--muted)}
+
+/* responsive */
+@media (max-width:880px){
+  main{grid-template-columns:1fr;}
+  .wheel-area{order:-1;margin-bottom:8px}
+}
+
+/* confetti canvas overlay */
+#confetti{position:fixed;left:0;top:0;pointer-events:none;width:100%;height:100%;z-index:1300}
+
+/* floating reset button (FAB) */
+.reset-fab{
+  position:fixed;
+  z-index:1000;
+  right:18px;
+  bottom:22px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:linear-gradient(180deg,var(--primary),#ff6b6b);
+  color:white;
+  border:0;
+  box-shadow:0 8px 24px rgba(0,0,0,0.18);
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  /* start hidden; will appear after an envelope is opened */
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity 240ms ease, transform 240ms ease;
+  pointer-events:none;
+}
+.reset-fab:active{transform:scale(0.98)}
+
+/* on small screens, center the FAB at the bottom for easier thumb reach */
+@media (max-width:520px){
+  .reset-fab{right:50%;transform:translateX(50%);bottom:16px;width:64px;height:64px;font-size:24px}
+}
+
+/* visible state */
+.reset-fab.visible{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+
+/* Modal popup styles */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:1200;pointer-events:none;opacity:0;transition:opacity 200ms ease}
+.modal.visible{opacity:1;pointer-events:auto}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(2px)}
+.modal-content{position:relative;z-index:1201;background:var(--card);padding:20px;border-radius:12px;max-width:92%;width:360px;box-shadow:0 20px 40px rgba(0,0,0,0.18);text-align:center}
+.modal-message{font-size:1.1rem;margin-bottom:12px;color:#3b2b2b}
+.modal-actions{display:flex;justify-content:center}
+.modal-reset{padding:10px 18px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--primary),#ff6b6b);color:#fff;font-weight:700;cursor:pointer}
+
+/* prevent background scroll while modal is open */
+body.no-scroll{overflow:hidden;height:100%}
+
+@media (max-width:520px){
+  .modal-content{width:92%;padding:16px}
+  .modal-message{font-size:1rem}
+}

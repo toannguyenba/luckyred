@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mở lì xì may mắn</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mở lì xì may mắn</h1>
+      <p>Chạm vào một lì xì để mở.</p>
+    </header>
+
+    <main>
+      <section class="wheel-area">
+        <div id="envelopes" class="envelopes" aria-label="Danh sách lì xì"></div>
+      </section>
+
+      <!-- result will appear in a modal to avoid page scroll on mobile -->
+    </main>
+
+    <footer>
+      <small>Made with TNB ❤️ — Mở lì xì may mắn</small>
+    </footer>
+  </div>
+
+  <!-- modal popup for result + reset -->
+  <div id="resultModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <div id="resultBox" class="modal-message" aria-live="polite"></div>
+      <div class="modal-actions">
+        <button id="resetBtn" class="modal-reset">Đặt lại</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="confetti"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>
